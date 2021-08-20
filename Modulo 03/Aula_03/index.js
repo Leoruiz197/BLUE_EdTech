@@ -1,3 +1,5 @@
+//CRUD de lista
+
 const express = require('express');
 const app = express();
 
@@ -34,11 +36,7 @@ app.get('/filmes/:id', (req, res) => {
   res.send(filme);
 });
 
-// rota que cadastra um novo filme.
-// READ - GET
-// CRIAR - POST
-// UPDATE - PUT
-// DELETE - DELETE
+//rota de cadastro de um novo filme
 app.post('/filmes', (req, res) => {
   const filme = req.body.filme; // harry potter
   const id = filmes.length;
@@ -48,6 +46,7 @@ app.post('/filmes', (req, res) => {
   O ID do filme é ${id}`)
 });
 
+//rota de atualizacao de um filme
 app.put('/filmes/:id', (req, res) => {
   const id = req.params.id -1;
   const filme = req.body.filme;
@@ -56,6 +55,7 @@ app.put('/filmes/:id', (req, res) => {
   res.send(`Filme anterior: ${nomeAnterior}, atualizado com sucesso para: ${filme}.`)
 });
 
+//rota de remocao de um filme
 app.delete('/filmes/:id', (req, res) => {
   const id = req.params.id -1;
   const filme = filmes[id];
@@ -74,6 +74,7 @@ app.delete('/filmesSplice/:id', (req,res)=>{
   res.send("Filme excluido com sucesso.")
 });
 
+//Definicao do listener passando a porta do servico
 app.listen(port, function() {
   console.info(`App rodando na porta http://localhost:${port}/`);
 });
