@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('Hello, Bluemer!');
 })
 
-// rota dos filmes - primeira rota - listagem dos filmes.
+// rota dos filmes - primeira rota - listagem dos filme para exibir todos
 app.get('/filmes', (req, res) => {
     res.send(filmes);
 })
