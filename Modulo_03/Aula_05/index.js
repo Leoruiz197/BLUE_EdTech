@@ -47,7 +47,8 @@ const filmes = [
 
 // arrow funcion (es6+ novo)
 const getFilmesValidos = () => filmes.filter(Boolean);
-const getFilmeById = (id) => getFilmesValidos().find((filme) => filme.id == id);
+const getFilmeById = (id) => getFilmesValidos().find((filme) => filme.id === id);
+const getIndexByFilme = (id) => getFilmesValidos().findIndex((filme) => filme.id === id);
 
 // primeira rota, retorna apernas a msg hello, bluemer.
 app.get("/", (req, res) => {
@@ -61,8 +62,8 @@ app.get("/filmes", (req, res) => {
 
 // rota do filme individual por id
 app.get("/filmes/:id", (req, res) => {
-  const id = req.params.id;
-  console.log(typeof id);
+  const id = parseInt(req.params.id);
+  //console.log(typeof id);
   const filme = getFilmeById(id);
 
   if (!filme) {
@@ -73,42 +74,87 @@ app.get("/filmes/:id", (req, res) => {
 
 //rota de cadastro de um novo filme
 app.post("/filmes", (req, res) => {
-  const filme = req.body.filme; // harry potter
-  const id = filmes.length;
-  filmes.push(filme);
+  const filme = req.body;
 
-  res.send(`Filme adicionado com sucesso: ${filme}. 
-  O ID do filme é ${id}`);
+  if(!filme || !filme.nome || !filme.imagemUrl){
+    res.status(400).send({
+      message: "Filme invalido. tente novamente",
+    });
+    return;
+  }
+
+  const ultimoFilme = filmes[filmes.length -1];
+
+  if(filmes.length){
+    filme.id = ultimoFilme.id +1;
+    filmes.push(filme);
+  }else{
+    filme.id = 1;
+    filmes.push(filme);
+  }
+
+  res.send(`Filme adicionado com sucesso: ${filme.nome}. 
+  O ID do filme é ${filme.id}`);
 });
 
 //rota de atualizacao de um filme
 app.put("/filmes/:id", (req, res) => {
-  const id = req.params.id - 1;
-  const filme = req.body.filme;
-  const nomeAnterior = filmes[id];
-  filmes[id] = filme;
-  res.send(
-    `Filme anterior: ${nomeAnterior}, atualizado com sucesso para: ${filme}.`
-  );
+  const id = +req.params.id - 1;
+  
+  const filmeIndex = getIndexByFilme(id);
+
+  if (filmeIndex < 0){
+    res.status(404).send({
+      message: "O filme nao foi encontrado, tente novamente."
+    });
+    return;
+  }
+
+  const novoFilme = req.body;
+
+  if(!Object.keys(novoFilme).length){
+    res.status(400).send({
+      message: "O body esta vazio!"
+    });
+    return;
+  }
+
+  if(!novoFilme || !novoFilme.nome || !novoFilme.imagemUrl){
+    res.status(400).send({
+      message: "filme invalido, tente novamente."
+    });
+    return;
+  }
+
+  const filme = getFilmeById(id);
+  
+  console.log(filmeIndex);
+  filmes[filmeIndex] = {
+    ...filme,
+    ...novoFilme,
+  };
+
+  res.send(filmes[filmeIndex]);
+
 });
 
 //rota de remocao de um filme
 app.delete("/filmes/:id", (req, res) => {
-  const id = req.params.id - 1;
-  const filme = filmes[id];
-  if (!filme) {
-    res.send("Filme não Encontrado");
-  }
-  delete filmes[id];
-  res.send("Filme excluido com sucesso");
-});
+  const id = +req.params.id;
 
-//sugestao da galera SPLICE
-app.delete("/filmesSplice/:id", (req, res) => {
-  const id = req.params.id - 1;
-  filmes.splice(id, 1);
-  //delete filmes[id]
-  res.send("Filme excluido com sucesso.");
+  const filmeIndex = getIndexByFilme(id);
+  
+  if(filmeIndex < 0 ){
+    res.status(404).send({
+      message: "Filme nao encontrado, tente novamente."
+    });
+    return;
+  }
+
+  filmes.splice(filmeIndex, 1);
+  res.send({
+    message: "Filme removido com sucesso"
+  });
 });
 
 //Definicao do listener passando a porta do servico
