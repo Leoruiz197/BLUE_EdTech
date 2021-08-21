@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <section class="row">
+        <div class="col-12">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-center"
+            id="list"
+          ></div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const getFilmes = async () => {
+        const result = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?limit=151"
+        );
+        const data = await result.json();
+        const list = document.getElementById("list");
+
+        data.results.map((pokemon, i) => {
+          list.insertAdjacentHTML(
+            "beforeend",
+            `
+            <div class="text-dark bg-light px-3">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                i + 1
+              }.png" class="card-img-top"/>
+              <div class="card-body">
+                <h1 class="card-title text-center">${pokemon.name}</h1>
+              </div>
+            </div>
+          `
+          );
+        });
+      };
+      getFilmes();
+    </script>
+  </body>
+</html>
