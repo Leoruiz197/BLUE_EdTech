@@ -99,7 +99,7 @@ app.post("/filmes", (req, res) => {
 
 //rota de atualizacao de um filme
 app.put("/filmes/:id", (req, res) => {
-  const id = +req.params.id - 1;
+  const id = +req.params.id;
   
   const filmeIndex = getIndexByFilme(id);
 
