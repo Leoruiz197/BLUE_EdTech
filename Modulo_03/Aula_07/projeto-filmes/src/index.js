@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ExemploClass from './components/ExemploClass';
+import ExemploFuncao from './components/ExemploFuncao';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ExemploFuncao />
   </React.StrictMode>,
   document.getElementById('root')
 );
