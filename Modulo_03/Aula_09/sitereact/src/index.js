@@ -1,7 +1,8 @@
 import React, { useState , useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Teste from './App';
+import Teste,  { Teste2 } from './App';
+
 
 export default function Home(){
   return <h1>Meu primeiro React</h1>
@@ -41,6 +42,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Home />
     <Teste />
+    <Teste2 />
     <Paragrafos texto2 = "alguma coisa"/>
     <Botao nome="Acumular" />
   </React.StrictMode>,
