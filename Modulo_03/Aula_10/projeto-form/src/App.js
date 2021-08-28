@@ -92,7 +92,7 @@ export default function App() {
   // filtra os elementos de acordo com o indice recebido via funcao
   // e so retorna os que forem diferente do indice passado
   const handleDelete = (indice) => {
-    setContatos(contatos.filter((contato, indiceContato) => indice == indiceContato))
+    setContatos(contatos.filter((contato, indiceContato) => indice !== indiceContato))
   };
 
   return (
