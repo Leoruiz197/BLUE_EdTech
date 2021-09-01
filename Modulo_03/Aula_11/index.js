@@ -7,15 +7,9 @@ const mongoose = require('mongoose');
 const Usuario = require('./models/usuario');
 const app = express();
 
-// url de conexao -> mongodb://servidor:porta/nome do banco
-// useNewUrlParser --> Para que o Moongoose use o novo sistema de Url
-// useUnifiedTopology --> Mecanismo de monitoramento de Banco de Dados
-mongoose.connect("mongodb://localhost:27017/usuarios", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const Conn = require('./conn/conn');
 
-
+Conn();
 
 // Monta uma estrutura de dados para cadastrar o novo usuario
 

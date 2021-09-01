@@ -1,0 +1,15 @@
+Palestra Segurança
+
+- Locking
+	- cadeados e trancas de porta - Sniffing
+	- Arrombamento	- Bruteforce
+	- Alarmes - Bypass
+
+-Senhas 
+	- força das senhas
+	- autorizacao (vc pode fazer) / autenticacao (vc é vc)
+
+-Hashes
+
+- Bad Configuration
+	- deixar a porta destrancada - Admin/Admin
