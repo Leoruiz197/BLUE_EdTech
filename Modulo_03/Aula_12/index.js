@@ -8,11 +8,11 @@ Conn("localhost",27017,"musicas");
 
 const port = 3000;
 
-const musica = require('./routers/musicas.routes');
-app.use('/musicas',musica);
+const musicasRouter = require('./routers/musicas.routes');
+app.use('/musicas',musicasRouter);
 
-const filme = require('./routers/filmes.routes');
-app.use('/filmes',filme);
+const filmeRouter = require('./routers/filmes.routes');
+app.use('/filmes',filmeRouter);
 
 app.listen(port, ()=> {
   console.info(`Servidor rodando na porta ${port}`);
