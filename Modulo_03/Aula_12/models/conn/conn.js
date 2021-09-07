@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // useNewUrlParser --> Para que o Moongoose use o novo sistema de Url
 // useUnifiedTopology --> Mecanismo de monitoramento de Banco de Dados
 function Conn(url,porta,banco){
-    mongoose.connect(`mongodb://${url}:${porta}/${banco}`, {
+    mongoose.connect(`mongodb+srv://dbUser:0zXo59QEig7PxcYh@blue-db.etutw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() => {
